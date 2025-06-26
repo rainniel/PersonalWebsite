@@ -1,0 +1,44 @@
+﻿@{
+    var ownerName = ViewData["OwnerName"] ?? "";
+    var pageName = PageHelpers.GetCurrentPageName(Context);
+}
+
+<div class="flex-1 pb-6">
+    <div class="py-6 px-4 space-y-2 text-center">
+        <img class="mx-auto w-40 h-40 lg:w-52 lg:h-52 rounded-full border border-gray-300" src="~/images/profile.jpg" alt="Profile Picture" />
+        <p class="text-2xl font-bold">@ownerName</p>
+    </div>
+
+    <nav class="flex flex-col space-y-2">
+        <a class="@(pageName == "index" ? "nav-link-active nav-link-active-theme" : "nav-link nav-link-theme")" asp-area="" asp-page="/Index">
+            <span class="icon-home text-xl"></span> Home
+        </a>
+
+        <a class="@(pageName == "portfolio" ? "nav-link-active nav-link-active-theme" : "nav-link nav-link-theme")" asp-area="" asp-page="/Portfolio">
+            <span class="icon-portfolio text-xl"></span> Portfolio
+        </a>
+
+        <a class="@(pageName == "blog" ? "nav-link-active nav-link-active-theme" : "nav-link nav-link-theme")" asp-area="" asp-page="/Blog">
+            <span class="icon-article text-xl"></span> Blog
+        </a>
+
+        <a class="@(pageName == "contact" ? "nav-link-active nav-link-active-theme" : "nav-link nav-link-theme")" asp-area="" asp-page="/Contact">
+            <span class="icon-mail text-xl"></span> Contact
+        </a>
+    </nav>
+</div>
+
+<div class="flex flex-wrap justify-center px-4 gap-2 text-xl">
+    <a href="#" class="social-link social-link-theme">
+        <span class="icon-facebook"></span>
+    </a>
+    <a href="#" class="social-link social-link-theme">
+        <span class="icon-linkedin"></span>
+    </a>
+    <a href="#" class="social-link social-link-theme">
+        <span class="icon-x-twitter"></span>
+    </a>
+    <a href="#" class="social-link social-link-theme">
+        <span class="icon-github"></span>
+    </a>
+</div>

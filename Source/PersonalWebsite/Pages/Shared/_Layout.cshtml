@@ -1,0 +1,54 @@
+﻿@{
+    var ownerName = "Your Name";
+    ViewData["OwnerName"] = ownerName;
+}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PersonalWebsite</title>
+
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/icons.css" asp-append-version="true" />
+
+    <environment include="Development">
+        <script src="https://cdn.jsdelivr.net/npm/@@tailwindcss/browser@4"></script>
+    </environment>
+</head>
+<body class="flex min-h-full">
+    <aside class="sidebar sidebar-theme">
+        <partial name="_Navigation" />
+    </aside>
+
+    <main class="flex-1 flex flex-col mainbody-theme">
+        <div class="h-16 flex items-center">
+            <div class="main-container w-full flex justify-end items-center gap-2 text-2xl">
+                <button type="button" onclick="Theme.toggle()" class="heading-button heading-button-theme">
+                    <span id="light-icon" class="icon-theme-light" style="display:none"></span>
+                    <span id="dark-icon" class="icon-theme-dark" style="display:none"></span>
+                </button>
+
+                <button type="button" class="heading-button heading-button-theme md:hidden">
+                    <span class="icon-menu"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="flex-1 overflow-auto p-4">
+            <div class="main-container">
+                @RenderBody()
+            </div>
+        </div>
+
+        <footer class="py-5 flex items-center footer-theme">
+            <div class="main-container w-full flex justify-end items-center gap-2">
+                Copyright © @DateTime.Now.Year
+            </div>
+        </footer>
+    </main>
+
+    <script src="~/js/theme.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
