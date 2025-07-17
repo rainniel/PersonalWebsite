@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'icons';
-    src: url('/fonts/icons.eot?merxjb');
-    src: url('/fonts/icons.eot?merxjb#iefix') format('embedded-opentype'), url('/fonts/icons.ttf?merxjb') format('truetype'), url('/fonts/icons.woff?merxjb') format('woff'), url('/fonts/icons.svg?merxjb#icons') format('svg');
+    src: url('/fonts/icons.eot?w6xz5p');
+    src: url('/fonts/icons.eot?w6xz5p#iefix') format('embedded-opentype'), url('/fonts/icons.ttf?w6xz5p') format('truetype'), url('/fonts/icons.woff?w6xz5p') format('woff'), url('/fonts/icons.svg?w6xz5p#icons') format('svg');
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -23,42 +23,46 @@
     content: "\e900";
 }
 
-.icon-facebook:before {
+.icon-close:before {
     content: "\e901";
 }
 
-.icon-github:before {
+.icon-facebook:before {
     content: "\e902";
 }
 
-.icon-home:before {
+.icon-github:before {
     content: "\e903";
 }
 
-.icon-linkedin:before {
+.icon-home:before {
     content: "\e904";
 }
 
-.icon-mail:before {
+.icon-linkedin:before {
     content: "\e905";
 }
 
-.icon-menu:before {
+.icon-mail:before {
     content: "\e906";
 }
 
-.icon-portfolio:before {
+.icon-menu:before {
     content: "\e907";
 }
 
-.icon-theme-dark:before {
+.icon-portfolio:before {
     content: "\e908";
 }
 
-.icon-theme-light:before {
+.icon-theme-dark:before {
     content: "\e909";
 }
 
-.icon-x-twitter:before {
+.icon-theme-light:before {
     content: "\e90a";
+}
+
+.icon-x-twitter:before {
+    content: "\e90b";
 }

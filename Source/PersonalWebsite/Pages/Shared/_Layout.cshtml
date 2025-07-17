@@ -25,11 +25,11 @@
     </aside>
 
     <main class="flex-1 flex flex-col mainbody-theme">
-        <div class="h-16 flex items-center" x-data="{ menuOpen: false }">
+        <div class="h-16 flex items-center" x-data="{ menuOpen: true }">
             <div class="main-container w-full flex justify-between items-center text-2xl">
                 <div class="font-semibold">
                     <h1 class="hidden md:block">@title</h1>
-                    <div class="flex items-center gap-2 md:hidden">
+                    <div class="flex items-center gap-3 md:hidden">
                         <img class="mx-auto w-10 h-10 rounded-full border border-gray-300" src="~/images/profile.jpg" alt="Profile Picture" />
                         <span class="truncate">@ownerName</span>
                     </div>
@@ -42,13 +42,14 @@
                     </button>
 
                     <button type="button" class="heading-button heading-button-theme md:hidden" @@click="menuOpen = !menuOpen">
-                        <span class="icon-menu"></span>
+                        <span class="icon-menu" x-show="!menuOpen"></span>
+                        <span class="icon-close" x-show="menuOpen"></span>
                     </button>
                 </div>
             </div>
 
             <div class="absolute top-16 left-0 w-full bg-white shadow-md z-50 p-6 md:hidden" x-show="menuOpen" @@click.away="menuOpen = false">
-                @await Html.PartialAsync("_NavigationLinks", false)
+                <partial name="_NavLinkMobile" />
             </div>
         </div>
 
