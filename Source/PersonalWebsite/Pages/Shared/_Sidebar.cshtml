@@ -1,12 +1,13 @@
 ﻿@{
     var ownerName = ViewData["OwnerName"] ?? "";
 }
-<div class="flex-1 pb-6">
-    <div class="py-6 px-4 space-y-2 text-center">
-        <img class="mx-auto w-40 h-40 lg:w-52 lg:h-52 rounded-full border border-gray-300" src="~/images/profile.jpg" alt="Profile Picture" />
-        <p class="text-2xl font-bold">@ownerName</p>
+<aside class="sidebar">
+    <div class="flex-1 pb-6">
+        <div class="py-6 px-4 space-y-2 text-center">
+            <img class="mx-auto w-40 h-40 lg:w-52 lg:h-52 rounded-full border border-gray-300" src="~/images/profile.jpg" alt="Profile Picture" />
+            <p class="text-2xl font-bold">@ownerName</p>
+        </div>
+        <partial name="_NavLinkDesktop" />
     </div>
-    <partial name="_NavLinkDesktop" />
-</div>
-
-<partial name="_SocialMediaLinks" />
+    <partial name="_SocialMediaLinks" />
+</aside>

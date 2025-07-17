@@ -1,17 +1,43 @@
-﻿@import "tailwindcss";
+﻿@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Old+Hungarian&display=swap");
+@import "tailwindcss";
 @config "../tailwind.config.js";
 
+@theme {
+    --color-text: #000;
+    --color-background: #fff;
+    --color-sidebar: #f1f1f1;
+    --color-border: #e8e8e8;
+    --color-primary: #285a2c;
+    --color-secondary: #56d260;
+    --color-accent: #285a2c;
+    --color-text-dark: #fff;
+    --color-background-dark: #1a1a1a;
+    --color-sidebar-dark: #000;
+    --color-border-dark: #181818;
+    --color-primary-dark: #a7d7ab;
+    --color-secondary-dark: #2da937;
+    --color-accent-dark: #a7d7ab;
+    --default-font-family: "Noto Sans Old Hungarian", sans-serif;
+}
+
+body {
+    @apply text-text dark:text-text-dark bg-background dark:bg-background-dark;
+}
 
 aside.sidebar {
-    @apply w-64 lg:w-80 flex-col border-r py-4 hidden md:flex;
+    @apply w-64 lg:w-80 flex-col py-4 bg-sidebar dark:bg-sidebar-dark border-r border-border dark:border-border-dark hidden md:flex;
 }
 
-aside.sidebar-theme {
-    @apply text-black bg-[#f1f1f1] border-[#e8e8e8] dark:text-white dark:bg-[#000000] dark:border-[#181818];
+span.nav-icon {
+    @apply text-accent dark:text-accent-dark;
 }
 
-main.mainbody-theme {
-    @apply text-black bg-white dark:text-white dark:bg-[#0c0c0c];
+a.nav-link {
+    @apply rounded-md mx-4 py-2 px-4 inline-flex gap-2 items-center font-semibold border border-sidebar dark:border-sidebar-dark hover:bg-gray-200 dark:hover:bg-gray-900;
+}
+
+a.nav-link-active {
+    @apply rounded-l-md ml-4 mr-[-1px] py-2 pl-4 inline-flex gap-2 items-center font-semibold bg-background dark:bg-background-dark border-l border-t border-b border-border dark:border-border-dark;
 }
 
 button.heading-button {
@@ -19,33 +45,17 @@ button.heading-button {
 }
 
 button.heading-button-theme {
-    @apply text-gray-700 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-800;
-}
-
-a.nav-link {
-    @apply rounded-md mx-4 py-2 px-4 inline-flex gap-2 items-center font-semibold;
-}
-
-a.nav-link-active {
-    @apply rounded-l-md ml-4 mr-[-1px] py-2 pl-4 inline-flex gap-2 items-center font-semibold;
-}
-
-a.nav-link-theme {
-    @apply border border-[#f1f1f1] hover:bg-gray-300;
-}
-
-a.nav-link-active-theme {
-    @apply bg-white border-l border-t border-b border-[#e8e8e8];
+    @apply hover:bg-gray-200 dark:hover:bg-gray-800;
 }
 
 a.social-link {
     @apply rounded-full h-10 w-10 text-center p-2 hover:scale-160 transition duration-150;
 }
 
-a.social-link-theme {
-    @apply text-[#606060] hover:text-black;
-}
-
 .main-container {
     @apply mx-auto max-w-3xl xl:max-w-5xl px-4;
+}
+
+footer {
+    @apply border-t md:border-0 border-border dark:border-border-dark bg-sidebar dark:bg-sidebar-dark md:bg-background dark:md:bg-background-dark;
 }

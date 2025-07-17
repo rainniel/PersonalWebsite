@@ -20,11 +20,9 @@
     </environment>
 </head>
 <body class="flex min-h-full">
-    <aside class="sidebar sidebar-theme">
-        <partial name="_Sidebar" />
-    </aside>
+    <partial name="_Sidebar" />
 
-    <main class="flex-1 flex flex-col mainbody-theme">
+    <main class="flex-1 flex flex-col">
         <div class="h-16 flex items-center" x-data="{ menuOpen: true }">
             <div class="main-container w-full flex justify-between items-center text-2xl">
                 <div class="font-semibold">
@@ -48,7 +46,7 @@
                 </div>
             </div>
 
-            <div class="absolute top-16 left-0 w-full bg-white shadow-md z-50 p-6 md:hidden" x-show="menuOpen" @@click.away="menuOpen = false">
+            <div class="absolute top-16 left-0 w-full bg-background dark:bg-background-dark shadow-md z-50 p-6 md:hidden" x-show="menuOpen" @@click.away="menuOpen = false">
                 <partial name="_NavLinkMobile" />
             </div>
         </div>
@@ -62,7 +60,7 @@
             </div>
         </div>
 
-        <footer class="py-5 px-4 flex items-center footer-theme bg-[#f1f1f1] border-t border-[#e8e8e8] md:border-0 md:bg-white">
+        <footer class="py-5 px-4 flex items-center">
             <div class="main-container w-full flex flex-col md:flex-row items-center space-y-2 justify-center md:justify-end">
                 <div class="md:hidden">
                     <partial name="_SocialMediaLinks" />

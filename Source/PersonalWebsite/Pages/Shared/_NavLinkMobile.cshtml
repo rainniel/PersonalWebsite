@@ -2,19 +2,19 @@
     var pageName = PageHelpers.GetCurrentPageName(Context);
 }
 <nav class="flex flex-col space-y-2">
-    <a class="@(pageName == "index" ? "nav-link-active nav-link-active-theme" : "nav-link nav-link-theme")" asp-area="" asp-page="/Index">
-        <span class="icon-home text-xl"></span> Home
+    <a class="@(pageName == "index" ? "nav-link-active" : "nav-link")" asp-area="" asp-page="/Index">
+        <span class="nav-icon icon-home text-xl"></span> Home
     </a>
 
-    <a class="@(pageName == "portfolio" ? "nav-link-active nav-link-active-theme" : "nav-link nav-link-theme")" asp-area="" asp-page="/Portfolio">
-        <span class="icon-portfolio text-xl"></span> Portfolio
+    <a class="@(pageName == "portfolio" ? "nav-link-active" : "nav-link")" asp-area="" asp-page="/Portfolio">
+        <span class="nav-icon icon-portfolio text-xl"></span> Portfolio
     </a>
 
-    <a class="@(pageName == "blog" ? "nav-link-active nav-link-active-theme" : "nav-link nav-link-theme")" asp-area="" asp-page="/Blog">
-        <span class="icon-article text-xl"></span> Blog
+    <a class="@(pageName == "blog" ? "nav-link-active" : "nav-link")" asp-area="" asp-page="/Blog">
+        <span class="nav-icon icon-article text-xl"></span> Blog
     </a>
 
-    <a class="@(pageName == "contact" ? "nav-link-active nav-link-active-theme" : "nav-link nav-link-theme")" asp-area="" asp-page="/Contact">
-        <span class="icon-mail text-xl"></span> Contact
+    <a class="@(pageName == "contact" ? "nav-link-active" : "nav-link")" asp-area="" asp-page="/Contact">
+        <span class="nav-icon icon-mail text-xl"></span> Contact
     </a>
 </nav>
