@@ -1,0 +1,45 @@
+﻿@{
+    var siteTitle = "PersonalWebsite";
+}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@siteTitle</title>
+
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/icons.css" asp-append-version="true" />
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <environment include="Development">
+        <script src="https://cdn.jsdelivr.net/npm/@@tailwindcss/browser@4"></script>
+    </environment>
+</head>
+<body class="flex min-h-full">
+    <main class="flex-1 flex flex-col">
+        <div class="h-16 flex items-center">
+            <div class="main-container w-full flex justify-end items-center text-2xl">
+                <button type="button" onclick="Theme.toggle()" class="heading-button heading-button-theme">
+                    <span id="light-icon" class="icon-theme-light" style="display:none"></span>
+                    <span id="dark-icon" class="icon-theme-dark" style="display:none"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="main-container flex-1 flex items-center justify-center">
+            <div>
+                @RenderBody()
+            </div>
+        </div>
+
+        <footer class="py-5 px-4 flex items-center">
+            <div class="main-container w-full flex flex-col items-center justify-center">
+                <span>Copyright © @DateTime.Now.Year</span>
+            </div>
+        </footer>
+    </main>
+    <script src="~/js/theme.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

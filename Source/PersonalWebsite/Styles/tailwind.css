@@ -1,4 +1,4 @@
-﻿@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Old+Hungarian&display=swap");
+﻿@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 @import "tailwindcss";
 @config "../tailwind.config.js";
 
@@ -17,7 +17,11 @@
     --color-primary-dark: #a7d7ab;
     --color-secondary-dark: #2da937;
     --color-accent-dark: #a7d7ab;
-    --default-font-family: "Noto Sans Old Hungarian", sans-serif;
+    --font-default: "Geist", sans-serif;
+}
+
+html {
+    @apply font-default;
 }
 
 body {
@@ -40,6 +44,10 @@ a.nav-link-active {
     @apply rounded-l-md ml-4 mr-[-1px] py-2 pl-4 inline-flex gap-2 items-center font-semibold bg-background dark:bg-background-dark border-l border-t border-b border-border dark:border-border-dark;
 }
 
+a.nav-link-active-mobile {
+    @apply rounded-md mx-4 py-2 px-4 inline-flex gap-2 items-center font-semibold bg-[#d7f0d9] dark:bg-[#0f2811] border border-sidebar dark:border-sidebar-dark;
+}
+
 button.heading-button {
     @apply w-10 h-10 rounded-full cursor-pointer;
 }
@@ -56,6 +64,18 @@ a.social-link {
     @apply mx-auto max-w-3xl xl:max-w-5xl px-4;
 }
 
-footer {
+footer.footer {
     @apply border-t md:border-0 border-border dark:border-border-dark bg-sidebar dark:bg-sidebar-dark md:bg-background dark:md:bg-background-dark;
+}
+
+button.button {
+    @apply rounded-md p-2 bg-primary dark:bg-primary-dark text-text-dark dark:text-text cursor-pointer;
+}
+
+h1 {
+    @apply text-3xl font-bold;
+}
+
+h2 {
+    @apply text-2xl font-bold;
 }
