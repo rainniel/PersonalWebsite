@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using PersonalWebsite.Constants;
 
 namespace PersonalWebsite.Pages.Admin
 {
@@ -11,7 +12,7 @@ namespace PersonalWebsite.Pages.Admin
     {
         public IActionResult OnGet()
         {
-            return Redirect("/Admin");
+            return Redirect(Routes.Admin.Root);
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -21,7 +22,7 @@ namespace PersonalWebsite.Pages.Admin
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             }
 
-            return Redirect("/Admin");
+            return Redirect(Routes.Admin.Root);
         }
     }
 }

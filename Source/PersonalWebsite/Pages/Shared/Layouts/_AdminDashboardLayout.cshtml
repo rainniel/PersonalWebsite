@@ -1,5 +1,7 @@
-﻿@{
-    var siteTitle = "PersonalWebsite";
+﻿@inject IOptions<SiteInfo> SiteInfo
+@{
+    var siteTitle = SiteInfo.Value.Title;
+    var pageTitle = ViewData["PageTitle"];
 }
 <!DOCTYPE html>
 <html lang="en" class="h-full">
@@ -19,22 +21,64 @@
 <body class="flex min-h-full">
     <main class="flex-1 flex flex-col">
         <div class="h-16 flex items-center">
-            <div class="main-container w-full flex justify-end items-center text-2xl">
-                <button type="button" onclick="Theme.toggle()" class="heading-button heading-button-theme">
-                    <span id="light-icon" class="icon-theme-light" style="display:none"></span>
-                    <span id="dark-icon" class="icon-theme-dark" style="display:none"></span>
-                </button>
-                <form method="post" asp-page="/Admin/Logout">
-                    <button type="submit" class="heading-button heading-button-theme">
-                        <span class="icon-logout"></span>
+            <div class="main-container w-full flex justify-between items-center text-2xl">
+                <div>
+                    <a asp-area="" asp-page="@Routes.Public.Home">@siteTitle</a>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button type="button" onclick="Theme.toggle()" class="heading-button heading-button-theme">
+                        <span id="light-icon" class="icon-theme-light" style="display:none"></span>
+                        <span id="dark-icon" class="icon-theme-dark" style="display:none"></span>
                     </button>
-                </form>
+                    <form method="post" asp-page="@Routes.Admin.Logout">
+                        <button type="submit" class="heading-button heading-button-theme">
+                            <span class="icon-logout"></span>
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
 
-        <div class="main-container flex-1">
-            <div>
-                @RenderBody()
+        <div class="flex-1 overflow-auto p-4">
+            <div class="main-container flex space-x-6">
+                <div>
+                    <div class="p-4 rounded-xl flex flex-col space-y-2 bg-sidebar dark:bg-sidebar-dark">
+                        <span>Site Contents</span>
+                        <a class="dashboard-link" asp-area="" asp-page="@Routes.Admin.Dashboard">
+                            <span class="nav-icon icon-home"></span> Dashboard
+                        </a>
+                        <a class="dashboard-link" asp-area="" asp-page="@Routes.Admin.Home">
+                            <span class="nav-icon icon-home"></span> Home
+                        </a>
+                        <a class="dashboard-link" asp-area="" asp-page="@Routes.Admin.Portfolio">
+                            <span class="nav-icon icon-briefcase"></span> Portfolio
+                        </a>
+
+                        @* 
+                        <a class="dashboard-link" asp-area="" asp-page="@Routes.Admin.Portfolio">
+                            <span class="nav-icon icon-briefcase"></span> Portfolio
+                        </a>
+                        <a class="dashboard-link" asp-area="" asp-page="@Routes.Admin.Blog">
+                            <span class="nav-icon icon-article"></span> Blog
+                        </a>
+                        <a class="dashboard-link" asp-area="" asp-page="@Routes.Admin.Contact">
+                            <span class="nav-icon icon-mail"></span> Contact
+                        </a>
+                        <hr class="border-border dark:border-border-dark" />
+                        <a class="dashboard-link" asp-area="" asp-page="@Routes.Admin.Settings">
+                            <span class="nav-icon icon-home"></span> Settings
+                        </a>
+                        *@
+                    </div>
+                </div>
+
+                <div class="flex-1 overflow-auto space-y-6">
+                    <h1>@pageTitle</h1>
+                    <div>
+                        @RenderBody()
+                    </div>
+                </div>
             </div>
         </div>
 

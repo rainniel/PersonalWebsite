@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using PersonalWebsite.Constants;
 using System.Security.Claims;
 
 namespace PersonalWebsite.Pages.Admin
@@ -14,7 +15,7 @@ namespace PersonalWebsite.Pages.Admin
         {
             if (User.Identity?.IsAuthenticated == true)
             {
-                return Redirect("/Admin");
+                return Redirect(Routes.Admin.Root);
             }
 
             return Page();
@@ -39,7 +40,7 @@ namespace PersonalWebsite.Pages.Admin
                     ExpiresUtc = DateTimeOffset.UtcNow.AddDays(7)
                 });
 
-            return Redirect("/Admin");
+            return Redirect(Routes.Admin.Root);
         }
     }
 }

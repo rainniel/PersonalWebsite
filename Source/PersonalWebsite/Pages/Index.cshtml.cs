@@ -1,20 +1,18 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using PersonalWebsite.Models;
+using PersonalWebsite.Services;
 
 namespace PersonalWebsite.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexModel(IDBContent<PageContent> pageContent) : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly IDBContent<PageContent> _pageContent = pageContent;
+        public string PageContent { get; set; } = string.Empty;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public async Task OnGetAsync()
         {
-            _logger = logger;
-        }
-
-        public void OnGet()
-        {
-
+            var content = await _pageContent.GetCachedAsync("Home");
+            PageContent = content.Content;
         }
     }
 }

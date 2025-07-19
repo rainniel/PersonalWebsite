@@ -1,9 +1,10 @@
 ﻿@page
 @model PersonalWebsite.Pages.Admin.LoginModel
+@inject IOptions<SiteInfo> SiteInfo
 @{
     Layout = "Layouts/_AdminLoginLayout";
 
-    var siteTitle = "Personal Website";
+    var siteTitle = SiteInfo.Value.Title;
 }
 <div class="space-y-6">
     <div class="p-6 text-3xl text-center">@siteTitle</div>
@@ -25,6 +26,6 @@
         </form>
     </div>
     <div class="text-center">
-        <a asp-area="" asp-page="/Index">Back to home</a>
+        <a asp-area="" asp-page="@Routes.Public.Home">Back to home</a>
     </div>
 </div>

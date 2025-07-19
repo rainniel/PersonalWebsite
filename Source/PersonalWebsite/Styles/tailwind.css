@@ -1,4 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+﻿@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
 @import "tailwindcss";
 @config "../tailwind.config.js";
 
@@ -33,7 +33,7 @@ aside.sidebar {
 }
 
 span.nav-icon {
-    @apply text-accent dark:text-accent-dark;
+    @apply text-xl text-accent dark:text-accent-dark;
 }
 
 a.nav-link {
@@ -46,6 +46,10 @@ a.nav-link-active {
 
 a.nav-link-active-mobile {
     @apply rounded-md mx-4 py-2 px-4 inline-flex gap-2 items-center font-semibold bg-[#d7f0d9] dark:bg-[#0f2811] border border-sidebar dark:border-sidebar-dark;
+}
+
+a.dashboard-link {
+    @apply rounded-md py-2 px-4 inline-flex gap-2 items-center font-semibold border border-sidebar dark:border-sidebar-dark hover:bg-gray-200 dark:hover:bg-gray-900;
 }
 
 button.heading-button {
@@ -69,7 +73,7 @@ footer.footer {
 }
 
 button.button {
-    @apply rounded-md p-2 bg-primary dark:bg-primary-dark text-text-dark dark:text-text cursor-pointer;
+    @apply rounded-md px-4 py-2 bg-primary dark:bg-primary-dark text-text-dark dark:text-text cursor-pointer;
 }
 
 h1 {

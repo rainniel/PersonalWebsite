@@ -1,0 +1,17 @@
+﻿@page
+@model PersonalWebsite.Pages.Admin.PortfolioModel
+@{
+    ViewData["PageTitle"] = "Portfolio";
+}
+<form method="post">
+    <label for="content" class="font-semibold">Portfolio Content</label>
+    <textarea class="w-full h-96 border-1 rounded-md p-2" id="content" asp-for="PageContent"></textarea>
+    <div class="flex mt-2">
+        <div class="flex-1 overflow-auto">
+            HTML, CSS and JavaScript is allowed.
+        </div>
+        <div>
+            <button type="submit" class="button w-40">Save</button>
+        </div>
+    </div>
+</form>

@@ -1,7 +1,9 @@
-﻿@{
-    var title = ViewData["Title"];
+﻿@inject IOptions<SiteInfo> SiteInfo
+@{
+    var siteTitle = SiteInfo.Value.Title;
+    var pageTitle = ViewData["Title"];
 
-    var ownerName = "Your Name";
+    var ownerName = SiteInfo.Value.OwnerName;
     ViewData["OwnerName"] = ownerName;
 }
 <!DOCTYPE html>
@@ -9,7 +11,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@title - PersonalWebsite</title>
+    <title>@pageTitle - @siteTitle</title>
 
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/icons.css" asp-append-version="true" />
@@ -26,7 +28,7 @@
         <div class="h-16 flex items-center" x-data="{ menuOpen: false }">
             <div class="main-container w-full flex justify-between items-center text-2xl">
                 <div class="font-semibold">
-                    <h1 class="hidden md:block">@title</h1>
+                    <h1 class="hidden md:block">@pageTitle</h1>
                     <div class="flex items-center gap-3 md:hidden">
                         <img class="mx-auto w-10 h-10 rounded-full border border-gray-300" src="~/images/profile.jpg" alt="Profile Picture" />
                         <span class="truncate">@ownerName</span>
@@ -53,7 +55,7 @@
 
         <div class="flex-1 overflow-auto p-4">
             <div class="main-container space-y-2">
-                <h1 class="md:hidden">@title</h1>
+                <h1 class="md:hidden">@pageTitle</h1>
                 <div>
                     @RenderBody()
                 </div>
