@@ -1,0 +1,50 @@
+﻿@page
+@model PersonalWebsite.Pages.Admin.ProfileModel
+@{
+    ViewData["PageTitle"] = "My Profile";
+}
+<div x-data="tabComponent()" x-init="init()">
+    <div class="flex border-b border-border dark:border-border-dark font-semibold">
+        <a class="tab-button" :class="{ 'tab-button-active': tab === 'general' }" @@click="selectTab('general')" href="#general">
+            General
+        </a>
+        <a class="tab-button" :class="{ 'tab-button-active': tab === 'social-media' }" @@click="selectTab('social-media')" href="#social-media">
+            Social Media
+        </a>
+    </div>
+
+    <div class="p-4">
+        <div x-cloak x-show="tab === 'general'">
+            <form method="post" asp-page-handler="FormGeneral">
+                <label for="full-name" class="font-semibold">Full Name</label>
+                <input type="text" id="full-name" asp-for="FullName" />
+                <div class="flex mt-2">
+                    <div class="flex-1 overflow-auto">.</div>
+                    <div>
+                        <button type="submit" class="button w-40">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div x-cloak x-show="tab === 'social-media'">
+        </div>
+    </div>
+</div>
+
+<script>
+    function tabComponent() {
+        return {
+            tab: 'general',
+            init() {
+                const hash = window.location.hash.replace('#', '');
+                if (['general', 'social-media'].includes(hash)) {
+                    this.tab = hash;
+                }
+            },
+            selectTab(name) {
+                this.tab = name;
+                history.replaceState(null, null, `#${name}`);
+            }
+        };
+    }
+</script>

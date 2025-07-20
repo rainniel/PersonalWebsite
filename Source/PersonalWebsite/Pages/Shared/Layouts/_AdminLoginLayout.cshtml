@@ -1,13 +1,12 @@
-﻿@inject IOptions<SiteInfo> SiteInfo
-@{
-    var siteTitle = SiteInfo.Value.Title;
+﻿@{
+    var websiteName = (await SiteSettings.GetCachedAsync(SettingNames.WebsiteName)).Value;
 }
 <!DOCTYPE html>
 <html lang="en" class="h-full">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@siteTitle</title>
+    <title>@websiteName</title>
 
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/icons.css" asp-append-version="true" />

@@ -1,0 +1,50 @@
+﻿@page
+@model PersonalWebsite.Pages.Admin.SettingsModel
+@{
+    ViewData["PageTitle"] = "Settings";
+}
+<div x-data="tabComponent()" x-init="init()">
+    <div class="flex border-b border-border dark:border-border-dark font-semibold">
+        <a class="tab-button" :class="{ 'tab-button-active': tab === 'general' }" @@click="selectTab('general')" href="#general">
+            General
+        </a>
+        <a class="tab-button" :class="{ 'tab-button-active': tab === 'maintenance' }" @@click="selectTab('maintenance')" href="#maintenance">
+            Maintenance
+        </a>
+    </div>
+
+    <div class="p-4">
+        <div x-cloak x-show="tab === 'general'">
+            <form method="post" asp-page-handler="FormGeneral">
+                <label for="website-name" class="font-semibold">Website Name</label>
+                <input type="text" id="website-name" asp-for="WebsiteName" />
+                <div class="flex mt-2">
+                    <div class="flex-1 overflow-auto">.</div>
+                    <div>
+                        <button type="submit" class="button w-40">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div x-cloak x-show="tab === 'maintenance'">
+        </div>
+    </div>
+</div>
+
+<script>
+    function tabComponent() {
+        return {
+            tab: 'general',
+            init() {
+                const hash = window.location.hash.replace('#', '');
+                if (['general', 'maintenance'].includes(hash)) {
+                    this.tab = hash;
+                }
+            },
+            selectTab(name) {
+                this.tab = name;
+                history.replaceState(null, null, `#${name}`);
+            }
+        };
+    }
+</script>

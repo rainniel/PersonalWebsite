@@ -83,3 +83,15 @@ h1 {
 h2 {
     @apply text-2xl font-bold;
 }
+
+[x-cloak] {
+    display: none;
+}
+
+a.tab-button {
+    @apply px-4 py-2;
+}
+
+a.tab-button-active {
+    @apply border-b-2 border-primary dark:border-primary-dark text-primary dark:text-primary-dark hover:border-primary dark:hover:border-primary-dark;
+}

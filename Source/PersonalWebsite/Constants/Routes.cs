@@ -19,6 +19,7 @@
             public const string Portfolio = "/Admin/Portfolio";
             public const string Blog = "/Admin/Blog";
             public const string Contact = "/Admin/Contact";
+            public const string Profile = "/Admin/Profile";
             public const string Settings = "/Admin/Settings";
             public const string Login = "/Admin/Login";
             public const string Logout = "/Admin/Logout";

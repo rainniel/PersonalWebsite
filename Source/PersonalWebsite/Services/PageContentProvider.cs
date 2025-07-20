@@ -24,6 +24,7 @@ namespace PersonalWebsite.Services
             using var scope = _serviceProvider.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
+            var valueChanged = false;
             var pageContent = await dbContext.PageContents.FirstOrDefaultAsync(p => p.PageName.ToLower() == pageName.ToLower());
 
             if (pageContent == null)
@@ -32,19 +33,27 @@ namespace PersonalWebsite.Services
                 {
                     PageName = pageName,
                     Content = value,
-                    LastModified = DateTime.UtcNow
+                    LastModifiedDateTime = DateTime.UtcNow
                 };
 
                 dbContext.PageContents.Add(pageContent);
+                valueChanged = true;
             }
             else
             {
-                pageContent.Content = value;
-                pageContent.LastModified = DateTime.UtcNow;
+                if (!pageContent.Content.Equals(value))
+                {
+                    pageContent.Content = value;
+                    pageContent.LastModifiedDateTime = DateTime.UtcNow;
+                    valueChanged = true;
+                }
             }
 
-            await dbContext.SaveChangesAsync();
-            RefreshCached(pageName);
+            if (valueChanged)
+            {
+                await dbContext.SaveChangesAsync();
+                RefreshCached(pageName);
+            }
         }
 
         public async Task<PageContent> GetCachedAsync(string pageName)
@@ -54,15 +63,15 @@ namespace PersonalWebsite.Services
                 return cached;
             }
 
-            var content = await GetLatestAsync(pageName);
-            _cache[pageName] = content;
+            var pageContent = await GetLatestAsync(pageName);
+            _cache[pageName] = pageContent;
 
-            return content;
+            return pageContent;
         }
 
         public void RefreshCached(string pageName) => ClearCached(pageName);
 
-        public void ClearCached(string? pageName)
+        public void ClearCached(string? pageName = null)
         {
             if (!string.IsNullOrEmpty(pageName))
             {

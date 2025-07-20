@@ -1,9 +1,8 @@
-﻿@inject IOptions<SiteInfo> SiteInfo
-@{
-    var siteTitle = SiteInfo.Value.Title;
+﻿@{
+    var websiteName = (await SiteSettings.GetCachedAsync(SettingNames.WebsiteName)).Value;
     var pageTitle = ViewData["Title"];
 
-    var ownerName = SiteInfo.Value.OwnerName;
+    var ownerName = (await SiteSettings.GetCachedAsync(SettingNames.OwnerName)).Value;
     ViewData["OwnerName"] = ownerName;
 }
 <!DOCTYPE html>
@@ -11,7 +10,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@pageTitle - @siteTitle</title>
+    <title>@pageTitle - @websiteName</title>
 
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/icons.css" asp-append-version="true" />

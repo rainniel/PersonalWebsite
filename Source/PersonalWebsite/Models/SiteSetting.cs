@@ -2,15 +2,15 @@
 
 namespace PersonalWebsite.Models
 {
-    public class PageContent
+    public class SiteSetting
     {
         public int ID { get; set; }
 
         [Required]
         [MaxLength(50)]
-        public string PageName { get; set; } = default!;
+        public string SettingName { get; set; } = default!;
 
-        public string Content { get; set; } = string.Empty;
+        public string Value { get; set; } = string.Empty;
 
         public DateTime? LastModifiedDateTime { get; set; }
     }

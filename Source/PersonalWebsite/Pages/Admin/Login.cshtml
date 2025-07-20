@@ -1,13 +1,12 @@
 ﻿@page
 @model PersonalWebsite.Pages.Admin.LoginModel
-@inject IOptions<SiteInfo> SiteInfo
 @{
     Layout = "Layouts/_AdminLoginLayout";
 
-    var siteTitle = SiteInfo.Value.Title;
+    var websiteName = (await SiteSettings.GetCachedAsync(SettingNames.WebsiteName)).Value;
 }
 <div class="space-y-6">
-    <div class="p-6 text-3xl text-center">@siteTitle</div>
+    <div class="p-6 text-3xl text-center">@websiteName</div>
     <div class="w-96 bg-sidebar dark:bg-sidebar-dark rounded-xl p-6 space-y-6">
         <div>
             <h2>Sign in</h2>

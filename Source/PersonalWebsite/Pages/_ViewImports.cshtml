@@ -1,7 +1,10 @@
 ﻿@using Microsoft.Extensions.Options
 @using PersonalWebsite
-@using PersonalWebsite.Configuration
 @using PersonalWebsite.Constants
 @using PersonalWebsite.Helpers
+@using PersonalWebsite.Models
+@using PersonalWebsite.Services
+
 @namespace PersonalWebsite.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject IDBContent<SiteSetting> SiteSettings

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using PersonalWebsite.Configuration;
 using PersonalWebsite.Constants;
 using PersonalWebsite.Data;
 using PersonalWebsite.Models;
@@ -8,11 +7,10 @@ using PersonalWebsite.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.Configure<SiteInfo>(builder.Configuration.GetSection("SiteInfo"));
-
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddSingleton<IDBContent<SiteSetting>, SiteSettingProvider>();
 builder.Services.AddSingleton<IDBContent<PageContent>, PageContentProvider>();
 
 builder.Services.AddRazorPages(options =>
@@ -35,6 +33,16 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.EnsureCreated();
+
+    if (!db.SiteSettings.Any())
+    {
+        db.SiteSettings.AddRange(
+            new SiteSetting { SettingName = SettingNames.WebsiteName, Value = "PersonalWebsite" },
+            new SiteSetting { SettingName = SettingNames.OwnerName, Value = "Your Name" }
+        );
+
+        db.SaveChanges();
+    }
 }
 
 if (!app.Environment.IsDevelopment())

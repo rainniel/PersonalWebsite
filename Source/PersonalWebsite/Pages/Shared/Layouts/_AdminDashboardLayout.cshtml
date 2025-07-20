@@ -1,6 +1,5 @@
-﻿@inject IOptions<SiteInfo> SiteInfo
-@{
-    var siteTitle = SiteInfo.Value.Title;
+﻿@{
+    var websiteName = (await SiteSettings.GetCachedAsync(SettingNames.WebsiteName)).Value;
     var pageTitle = ViewData["PageTitle"];
 }
 <!DOCTYPE html>
@@ -8,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@siteTitle</title>
+    <title>@websiteName</title>
 
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/icons.css" asp-append-version="true" />
@@ -23,7 +22,7 @@
         <div class="h-16 flex items-center">
             <div class="main-container w-full flex justify-between items-center text-2xl">
                 <div>
-                    <a asp-area="" asp-page="@Routes.Public.Home">@siteTitle</a>
+                    <a asp-area="" asp-page="@Routes.Public.Home">@websiteName</a>
                 </div>
 
                 <div class="flex items-center gap-2">
@@ -45,31 +44,37 @@
                 <div>
                     <div class="p-4 rounded-xl flex flex-col space-y-2 bg-sidebar dark:bg-sidebar-dark">
                         <span>Site Contents</span>
+
                         <a class="dashboard-link" asp-area="" asp-page="@Routes.Admin.Dashboard">
-                            <span class="nav-icon icon-home"></span> Dashboard
+                            <span class="nav-icon icon-dashboard"></span> Dashboard
                         </a>
+
+                        <hr class="border-border dark:border-border-dark" />
+
                         <a class="dashboard-link" asp-area="" asp-page="@Routes.Admin.Home">
                             <span class="nav-icon icon-home"></span> Home
                         </a>
                         <a class="dashboard-link" asp-area="" asp-page="@Routes.Admin.Portfolio">
-                            <span class="nav-icon icon-briefcase"></span> Portfolio
+                            <span class="nav-icon icon-portfolio"></span> Portfolio
                         </a>
 
-                        @* 
-                        <a class="dashboard-link" asp-area="" asp-page="@Routes.Admin.Portfolio">
-                            <span class="nav-icon icon-briefcase"></span> Portfolio
+                        <a class="dashboard-link" href="#">
+                            <span class="nav-icon icon-blog"></span> Blog
                         </a>
-                        <a class="dashboard-link" asp-area="" asp-page="@Routes.Admin.Blog">
-                            <span class="nav-icon icon-article"></span> Blog
+
+                        <a class="dashboard-link" href="#">
+                            <span class="nav-icon icon-contact"></span> Contact
                         </a>
-                        <a class="dashboard-link" asp-area="" asp-page="@Routes.Admin.Contact">
-                            <span class="nav-icon icon-mail"></span> Contact
-                        </a>
+
                         <hr class="border-border dark:border-border-dark" />
-                        <a class="dashboard-link" asp-area="" asp-page="@Routes.Admin.Settings">
-                            <span class="nav-icon icon-home"></span> Settings
+
+                        <a class="dashboard-link" asp-area="" asp-page="@Routes.Admin.Profile">
+                            <span class="nav-icon icon-profile"></span> My Profile
                         </a>
-                        *@
+
+                        <a class="dashboard-link" asp-area="" asp-page="@Routes.Admin.Settings">
+                            <span class="nav-icon icon-settings"></span> Settings
+                        </a>
                     </div>
                 </div>
 
