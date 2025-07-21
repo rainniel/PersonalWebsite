@@ -1,9 +1,13 @@
 ﻿@{
-    var websiteName = (await SiteSettings.GetCachedAsync(SettingNames.WebsiteName)).Value;
+    var websiteName = (await SiteSettings.GetCachedAsync(SettingNames.WebsiteName)).Value ?? "";
     var pageTitle = ViewData["Title"];
 
-    var ownerName = (await SiteSettings.GetCachedAsync(SettingNames.OwnerName)).Value;
-    ViewData["OwnerName"] = ownerName;
+    var ownerName = (await SiteSettings.GetCachedAsync(SettingNames.OwnerName)).Value ?? "";
+    ViewData[SettingNames.OwnerName] = ownerName;
+
+    var profilePicture = (await SiteSettings.GetCachedAsync(SettingNames.ProfilePicture)).Value;
+    if (string.IsNullOrWhiteSpace(profilePicture)) profilePicture = "profile.webp";
+    ViewData[SettingNames.ProfilePicture] = profilePicture;
 }
 <!DOCTYPE html>
 <html lang="en" class="h-full">
@@ -29,7 +33,7 @@
                 <div class="font-semibold">
                     <h1 class="hidden md:block">@pageTitle</h1>
                     <div class="flex items-center gap-3 md:hidden">
-                        <img class="mx-auto w-10 h-10 rounded-full border border-gray-300" src="~/images/profile.jpg" alt="Profile Picture" />
+                        <img class="mx-auto w-10 h-10 rounded-full border border-gray-300" src="~/images/@profilePicture" alt="Profile Picture" />
                         <span class="truncate">@ownerName</span>
                     </div>
                 </div>

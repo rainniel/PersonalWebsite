@@ -4,15 +4,14 @@ using PersonalWebsite.Services;
 
 namespace PersonalWebsite.Pages
 {
-    public class PortfolioModel(IDBContent<PageContent> pageContent) : PageModel
+    public class PortfolioModel(IDataCacheService<PageContent> pageContent) : PageModel
     {
-        private readonly IDBContent<PageContent> _pageContent = pageContent;
+        private readonly IDataCacheService<PageContent> _pageContent = pageContent;
         public string PageContent { get; set; } = string.Empty;
 
         public async Task OnGetAsync()
         {
-            var content = await _pageContent.GetCachedAsync("Portfolio");
-            PageContent = content.Content;
+            PageContent = (await _pageContent.GetCachedAsync("Portfolio")).Content ?? "";
         }
     }
 }

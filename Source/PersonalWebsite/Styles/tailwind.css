@@ -95,3 +95,15 @@ a.tab-button {
 a.tab-button-active {
     @apply border-b-2 border-primary dark:border-primary-dark text-primary dark:text-primary-dark hover:border-primary dark:hover:border-primary-dark;
 }
+
+label {
+    @apply font-semibold;
+}
+
+textarea {
+    @apply p-2 rounded-md border-1 border-border dark:border-border-dark;
+}
+
+input.text {
+    @apply p-2 rounded-md border-1 border-border dark:border-border-dark;
+}

@@ -5,7 +5,7 @@ using System.Collections.Concurrent;
 
 namespace PersonalWebsite.Services
 {
-    public class PageContentProvider(IServiceProvider serviceProvider) : IDBContent<PageContent>
+    public class PageContentService(IServiceProvider serviceProvider) : IDataCacheService<PageContent>
     {
         private readonly IServiceProvider _serviceProvider = serviceProvider;
         private readonly ConcurrentDictionary<string, PageContent> _cache = new(StringComparer.OrdinalIgnoreCase);
@@ -15,24 +15,23 @@ namespace PersonalWebsite.Services
             using var scope = _serviceProvider.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-            return await dbContext.PageContents.FirstOrDefaultAsync(p => p.PageName.ToLower() == pageName.ToLower())
-                ?? new PageContent { PageName = pageName };
+            return await dbContext.PageContents.FirstOrDefaultAsync(p => p.Name.ToLower() == pageName.ToLower()) ?? new PageContent();
         }
 
-        public async Task SaveAsync(string pageName, string value)
+        public async Task SaveAsync(string pageName, PageContent data)
         {
             using var scope = _serviceProvider.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
             var valueChanged = false;
-            var pageContent = await dbContext.PageContents.FirstOrDefaultAsync(p => p.PageName.ToLower() == pageName.ToLower());
+            var pageContent = await dbContext.PageContents.FirstOrDefaultAsync(p => p.Name.ToLower() == pageName.ToLower());
 
             if (pageContent == null)
             {
                 pageContent = new PageContent
                 {
-                    PageName = pageName,
-                    Content = value,
+                    Name = pageName,
+                    Content = data.Content,
                     LastModifiedDateTime = DateTime.UtcNow
                 };
 
@@ -41,9 +40,9 @@ namespace PersonalWebsite.Services
             }
             else
             {
-                if (!pageContent.Content.Equals(value))
+                if (pageContent.Content != data.Content)
                 {
-                    pageContent.Content = value;
+                    pageContent.Content = data.Content;
                     pageContent.LastModifiedDateTime = DateTime.UtcNow;
                     valueChanged = true;
                 }

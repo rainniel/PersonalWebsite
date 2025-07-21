@@ -406,4 +406,5 @@ FodyWeavers.xsd
 *.sln.iml
 
 PersonalWebsite/wwwroot/css/styles.css
+PersonalWebsite/wwwroot/images/profile_*.webp
 PersonalWebsite/*.db*

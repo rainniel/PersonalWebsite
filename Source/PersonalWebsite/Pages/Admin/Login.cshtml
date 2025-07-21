@@ -3,7 +3,7 @@
 @{
     Layout = "Layouts/_AdminLoginLayout";
 
-    var websiteName = (await SiteSettings.GetCachedAsync(SettingNames.WebsiteName)).Value;
+    var websiteName = (await SiteSettings.GetCachedAsync(SettingNames.WebsiteName)).Value ?? "";
 }
 <div class="space-y-6">
     <div class="p-6 text-3xl text-center">@websiteName</div>

@@ -1,5 +1,5 @@
 ﻿@{
-    var pageName = PageHelpers.GetCurrentPageName(Context);
+    var pageName = PageHelper.GetCurrentPageName(Context);
 }
 <nav class="flex flex-col space-y-2">
     <a class="@(pageName == "index" ? "nav-link-active-mobile" : "nav-link")" asp-area="" asp-page="@Routes.Public.Home">

@@ -6,6 +6,7 @@ namespace PersonalWebsite.Data
     public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
         public DbSet<SiteSetting> SiteSettings { get; set; }
+        public DbSet<SocialMedia> SocialMedias { get; set; }
         public DbSet<PageContent> PageContents { get; set; }
     }
 }

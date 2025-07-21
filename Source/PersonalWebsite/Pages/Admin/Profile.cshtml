@@ -2,6 +2,9 @@
 @model PersonalWebsite.Pages.Admin.ProfileModel
 @{
     ViewData["PageTitle"] = "My Profile";
+
+    var profilePicture = (await SiteSettings.GetCachedAsync(SettingNames.ProfilePicture)).Value;
+    if (string.IsNullOrWhiteSpace(profilePicture)) profilePicture = "profile.webp";
 }
 <div x-data="tabComponent()" x-init="init()">
     <div class="flex border-b border-border dark:border-border-dark font-semibold">
@@ -15,36 +18,162 @@
 
     <div class="p-4">
         <div x-cloak x-show="tab === 'general'">
-            <form method="post" asp-page-handler="FormGeneral">
-                <label for="full-name" class="font-semibold">Full Name</label>
-                <input type="text" id="full-name" asp-for="FullName" />
-                <div class="flex mt-2">
-                    <div class="flex-1 overflow-auto">.</div>
-                    <div>
-                        <button type="submit" class="button w-40">Save</button>
+            <form method="post" enctype="multipart/form-data" asp-page-handler="FormGeneral">
+                <div class="space-y-6">
+                    <div class="flex flex-col items-center space-y-2">
+                        <label>Profile Picture</label>
+                        <img id="profile-picture" class="mx-auto w-52 h-52 rounded-full border border-gray-300 object-cover" src="~/images/@profilePicture" alt="Profile Picture" />
+
+                        <input type="checkbox" id="remove-picture" asp-for="RemovePicture" hidden />
+                        <input type="file" id="upload-picture" name="PictureFile" accept="image/*" onchange="previewPicture(event)" hidden />
+
+                        <div class="space-x-2">
+                            <button type="button" class="button" onclick="uploadPicture()">Change</button>
+                            <button type="button" class="button" onclick="removePicture()">Remove</button>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col mx-auto w-80">
+                        <label for="full-name">Full Name</label>
+                        <input type="text" class="text" id="full-name" asp-for="FullName" />
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <div class="flex-1">
+                            .
+                        </div>
+                        <div>
+                            <button type="submit" class="button w-40">Save</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+        <div x-cloak x-show="tab === 'social-media'">
+            <form method="post" asp-page-handler="FormSocialMedia">
+                <div class="space-y-6">
+                    <div class="space-y-8">
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <p class="text-lg font-bold">Facebook</p>
+                                <div>
+                                    <input type="checkbox" id="facebook-hide" asp-for="SMFacebook.IsHidden" />
+                                    <label for="facebook-hide">Hide</label>
+                                </div>
+                            </div>
+                            <div class="w-full flex items-center gap-2">
+                                <label for="facebook-url" class="whitespace-nowrap">URL</label>
+                                <input type="text" class="text flex-grow" id="facebook-url" asp-for="SMFacebook.URL" />
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <p class="text-lg font-bold">LinkedIn</p>
+                                <div>
+                                    <input type="checkbox" id="linkedin-hide" asp-for="SMLinkedIn.IsHidden" />
+                                    <label for="linkedin-hide">Hide</label>
+                                </div>
+                            </div>
+                            <div class="w-full flex items-center gap-2">
+                                <label for="linkedin-url" class="whitespace-nowrap">URL</label>
+                                <input type="text" class="text flex-grow" id="linkedin-url" asp-for="SMLinkedIn.URL" />
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <p class="text-lg font-bold">X (Twitter)</p>
+                                <div>
+                                    <input type="checkbox" id="xtwitter-hide" asp-for="SMXTwitter.IsHidden" />
+                                    <label for="xtwitter-hide">Hide</label>
+                                </div>
+                            </div>
+                            <div class="w-full flex items-center gap-2">
+                                <label for="xtwitter-url" class="whitespace-nowrap">URL</label>
+                                <input type="text" class="text flex-grow" id="xtwitter-url" asp-for="SMXTwitter.URL" />
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <p class="text-lg font-bold">GitHub</p>
+                                <div>
+                                    <input type="checkbox" id="github-hide" asp-for="SMGitHub.IsHidden" />
+                                    <label for="github-hide">Hide</label>
+                                </div>
+                            </div>
+                            <div class="w-full flex items-center gap-2">
+                                <label for="github-url" class="whitespace-nowrap">URL</label>
+                                <input type="text" class="text flex-grow" id="github-url" asp-for="SMGitHub.URL" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <div class="flex-1">
+                            .
+                        </div>
+                        <div>
+                            <button type="submit" class="button w-40">Save</button>
+                        </div>
                     </div>
                 </div>
             </form>
         </div>
-        <div x-cloak x-show="tab === 'social-media'">
-        </div>
     </div>
 </div>
 
-<script>
-    function tabComponent() {
-        return {
-            tab: 'general',
-            init() {
-                const hash = window.location.hash.replace('#', '');
-                if (['general', 'social-media'].includes(hash)) {
-                    this.tab = hash;
+@section Scripts {
+    <script>
+        function tabComponent() {
+            return {
+                tab: 'general',
+                init() {
+                    const hash = window.location.hash.replace('#', '');
+                    if (['general', 'social-media'].includes(hash)) {
+                        this.tab = hash;
+                    }
+                },
+                selectTab(name) {
+                    this.tab = name;
+                    history.replaceState(null, null, `#${name}`);
                 }
-            },
-            selectTab(name) {
-                this.tab = name;
-                history.replaceState(null, null, `#${name}`);
+            };
+        }
+
+        let currentPictureSrc = '@profilePicture';
+
+        function uploadPicture() {
+            document.getElementById('upload-picture').click();
+        }
+
+        function previewPicture(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('profile-picture');
+
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+                document.getElementById('remove-picture').checked = false;
+            } else {
+                if (currentPictureSrc) {
+                    preview.src = '/images/' + currentPictureSrc;
+                }
             }
-        };
-    }
-</script>
+        }
+
+         function removePicture() {
+            document.getElementById('remove-picture').checked = true;
+            const preview = document.getElementById('profile-picture');
+
+            currentPictureSrc = 'profile.webp';
+            preview.src = '/images/' + currentPictureSrc;
+        }
+    </script>
+}

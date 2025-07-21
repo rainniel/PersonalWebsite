@@ -1,5 +1,5 @@
 ﻿@{
-    var websiteName = (await SiteSettings.GetCachedAsync(SettingNames.WebsiteName)).Value;
+    var websiteName = (await SiteSettings.GetCachedAsync(SettingNames.WebsiteName)).Value ?? "";
     var pageTitle = ViewData["PageTitle"];
 }
 <!DOCTYPE html>

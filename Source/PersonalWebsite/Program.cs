@@ -10,8 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddSingleton<IDBContent<SiteSetting>, SiteSettingProvider>();
-builder.Services.AddSingleton<IDBContent<PageContent>, PageContentProvider>();
+builder.Services.AddSingleton<IDataCacheService<SiteSetting>, SiteSettingService>();
+builder.Services.AddSingleton<IDataCacheService<SocialMedia>, SocialMediaService>();
+builder.Services.AddSingleton<IDataCacheService<PageContent>, PageContentService>();
 
 builder.Services.AddRazorPages(options =>
 {
@@ -37,8 +38,8 @@ using (var scope = app.Services.CreateScope())
     if (!db.SiteSettings.Any())
     {
         db.SiteSettings.AddRange(
-            new SiteSetting { SettingName = SettingNames.WebsiteName, Value = "PersonalWebsite" },
-            new SiteSetting { SettingName = SettingNames.OwnerName, Value = "Your Name" }
+            new SiteSetting(SettingNames.WebsiteName, "PersonalWebsite"),
+            new SiteSetting(SettingNames.OwnerName, "Your Name")
         );
 
         db.SaveChanges();

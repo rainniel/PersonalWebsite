@@ -8,10 +8,17 @@ namespace PersonalWebsite.Models
 
         [Required]
         [MaxLength(50)]
-        public string PageName { get; set; } = default!;
+        public string Name { get; set; } = default!;
 
-        public string Content { get; set; } = string.Empty;
+        public string? Content { get; set; }
 
         public DateTime? LastModifiedDateTime { get; set; }
+
+        public PageContent() { }
+
+        public PageContent(string content = "")
+        {
+            Content = content;
+        }
     }
 }

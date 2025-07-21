@@ -1,6 +1,6 @@
 ﻿namespace PersonalWebsite.Helpers
 {
-    public static class PageHelpers
+    public static class PageHelper
     {
         public static string GetCurrentPageName(HttpContext context)
         {

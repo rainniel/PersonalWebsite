@@ -1,14 +1,33 @@
-﻿<div class="flex flex-wrap justify-center px-4 gap-2 text-xl">
-    <a href="#" class="social-link">
-        <span class="icon-facebook"></span>
-    </a>
-    <a href="#" class="social-link">
-        <span class="icon-linkedin"></span>
-    </a>
-    <a href="#" class="social-link">
-        <span class="icon-x-twitter"></span>
-    </a>
-    <a href="#" class="social-link">
-        <span class="icon-github"></span>
-    </a>
+﻿@inject IDataCacheService<SocialMedia> SocialMedias
+@{
+    var facebook = await SocialMedias.GetCachedAsync(SocialMediaNames.Facebook);
+    var linkedIn = await SocialMedias.GetCachedAsync(SocialMediaNames.LinkedIn);
+    var xTwitter = await SocialMedias.GetCachedAsync(SocialMediaNames.XTwitter);
+    var gitHub = await SocialMedias.GetCachedAsync(SocialMediaNames.GitHub);
+}
+<div class="flex flex-wrap justify-center px-4 gap-2 text-xl">
+    @if (facebook.IsVisibleAndHasUrl())
+    {
+        <a class="social-link" title="Facebook" href="@facebook.URL" target="_blank" rel="noopener noreferrer">
+            <span class="icon-facebook"></span>
+        </a>
+    }
+    @if (linkedIn.IsVisibleAndHasUrl())
+    {
+        <a class="social-link" title="LinkedIn" href="@linkedIn.URL" target="_blank" rel="noopener noreferrer">
+            <span class="icon-linkedin"></span>
+        </a>
+    }
+    @if (xTwitter.IsVisibleAndHasUrl())
+    {
+        <a class="social-link" title="X (Twitter)" href="@xTwitter.URL" target="_blank" rel="noopener noreferrer">
+            <span class="icon-x-twitter"></span>
+        </a>
+    }
+    @if (gitHub.IsVisibleAndHasUrl())
+    {
+        <a class="social-link" title="GitHub" href="@gitHub.URL" target="_blank" rel="noopener noreferrer">
+            <span class="icon-github"></span>
+        </a>
+    }
 </div>

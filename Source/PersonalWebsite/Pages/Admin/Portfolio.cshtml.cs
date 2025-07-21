@@ -7,24 +7,23 @@ using PersonalWebsite.Services;
 namespace PersonalWebsite.Pages.Admin
 {
     [Authorize]
-    public class PortfolioModel(IDBContent<PageContent> pageContent) : PageModel
+    public class PortfolioModel(IDataCacheService<PageContent> pageContent) : PageModel
     {
         private const string PageName = "Portfolio";
-        private readonly IDBContent<PageContent> _pageContent = pageContent;
+        private readonly IDataCacheService<PageContent> _pageContent = pageContent;
 
         [BindProperty]
-        public string PageContent { get; set; } = string.Empty;
+        public string ContentValue { get; set; } = string.Empty;
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var pageContent = await _pageContent.GetLatestAsync(PageName);
-            PageContent = pageContent.Content;
+            ContentValue = (await _pageContent.GetLatestAsync(PageName)).Content ?? "";
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            await _pageContent.SaveAsync(PageName, PageContent);
+            await _pageContent.SaveAsync(PageName, new PageContent(ContentValue));
             return RedirectToPage();
         }
     }
