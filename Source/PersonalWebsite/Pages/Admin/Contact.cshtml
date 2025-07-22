@@ -1,0 +1,22 @@
+﻿@page
+@model PersonalWebsite.Pages.Admin.ContactModel
+@{
+    ViewData["PageTitle"] = PageNames.Contact;
+}
+<form method="post">
+    <div class="space-y-1">
+        <div class="flex justify-between items-center">
+            <label class="text-lg font-bold">Contact Content</label>
+            <div>
+                <input type="checkbox" id="contact-disable" asp-for="DisablePage" />
+                <label for="contact-disable">Disable Page</label>
+            </div>
+        </div>
+    </div>
+    <div class="flex pt-4">
+        <div class="flex-1 overflow-auto"></div>
+        <div>
+            <button type="submit" class="button w-40">Save</button>
+        </div>
+    </div>
+</form>

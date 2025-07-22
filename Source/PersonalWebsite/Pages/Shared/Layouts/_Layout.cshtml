@@ -1,6 +1,6 @@
 ﻿@{
     var websiteName = (await SiteSettings.GetCachedAsync(SettingNames.WebsiteName)).Value ?? "";
-    var pageTitle = ViewData["Title"];
+    var pageTitle = ViewData["PageTitle"];
 
     var ownerName = (await SiteSettings.GetCachedAsync(SettingNames.OwnerName)).Value ?? "";
     ViewData[SettingNames.OwnerName] = ownerName;

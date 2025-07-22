@@ -24,7 +24,7 @@ namespace PersonalWebsite.Services
             using var scope = _serviceProvider.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-            var valueChanged = false;
+            var dataChanged = false;
             var socialMedia = await dbContext.SocialMedias.FirstOrDefaultAsync(p => p.Name.ToLower() == name.ToLower());
 
             if (socialMedia == null)
@@ -38,7 +38,7 @@ namespace PersonalWebsite.Services
                 };
 
                 dbContext.SocialMedias.Add(socialMedia);
-                valueChanged = true;
+                dataChanged = true;
             }
             else
             {
@@ -47,11 +47,11 @@ namespace PersonalWebsite.Services
                     socialMedia.URL = data.URL;
                     socialMedia.IsHidden = data.IsHidden;
                     socialMedia.LastModifiedDateTime = DateTime.UtcNow;
-                    valueChanged = true;
+                    dataChanged = true;
                 }
             }
 
-            if (valueChanged)
+            if (dataChanged)
             {
                 await dbContext.SaveChangesAsync();
                 RefreshCached(name);
@@ -65,10 +65,10 @@ namespace PersonalWebsite.Services
                 return cached;
             }
 
-            var siteSetting = await GetLatestAsync(name);
-            _cache[name] = siteSetting;
+            var socialMedia = await GetLatestAsync(name);
+            _cache[name] = socialMedia;
 
-            return siteSetting;
+            return socialMedia;
         }
 
         public void RefreshCached(string name) => ClearCached(name);

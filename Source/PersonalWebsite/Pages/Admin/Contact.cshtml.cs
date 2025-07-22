@@ -8,29 +8,23 @@ using PersonalWebsite.Services;
 namespace PersonalWebsite.Pages.Admin
 {
     [Authorize]
-    public class PortfolioModel(IDataCacheService<PageSetting> pageSetting, IDataCacheService<PageContent> pageContent) : PageModel
+    public class ContactModel(IDataCacheService<PageSetting> pageSetting) : PageModel
     {
-        private const string PageName = PageNames.Portfolio;
+        private const string PageName = PageNames.Contact;
         private readonly IDataCacheService<PageSetting> _pageSetting = pageSetting;
-        private readonly IDataCacheService<PageContent> _pageContent = pageContent;
 
         [BindProperty]
         public bool DisablePage { get; set; }
 
-        [BindProperty]
-        public string ContentValue { get; set; } = string.Empty;
-
         public async Task<IActionResult> OnGetAsync()
         {
             DisablePage = (await _pageSetting.GetLatestAsync(PageName)).IsDisabled;
-            ContentValue = (await _pageContent.GetLatestAsync(PageName)).Content ?? "";
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             await _pageSetting.SaveAsync(PageName, new PageSetting(DisablePage));
-            await _pageContent.SaveAsync(PageName, new PageContent(ContentValue));
             return RedirectToPage();
         }
     }

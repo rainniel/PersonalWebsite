@@ -1,12 +1,9 @@
 ﻿@page
 @model PersonalWebsite.Pages.Admin.LoginModel
 @{
-    Layout = "Layouts/_AdminLoginLayout";
-
-    var websiteName = (await SiteSettings.GetCachedAsync(SettingNames.WebsiteName)).Value ?? "";
+    Layout = "Layouts/_MinimalLayout";
 }
 <div class="space-y-6">
-    <div class="p-6 text-3xl text-center">@websiteName</div>
     <div class="w-96 bg-sidebar dark:bg-sidebar-dark rounded-xl p-6 space-y-6">
         <div>
             <h2>Sign in</h2>
@@ -24,7 +21,7 @@
             </div>
         </form>
     </div>
-    <div class="text-center">
-        <a asp-area="" asp-page="@Routes.Public.Home">Back to home</a>
+    <div class="text-center font-semibold">
+        <a asp-area="" asp-page="@Routes.Public.Home">Back to Home</a>
     </div>
 </div>

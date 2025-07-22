@@ -4,7 +4,9 @@
 @using PersonalWebsite.Helpers
 @using PersonalWebsite.Models
 @using PersonalWebsite.Services
+@using System.Text.Json
 
 @namespace PersonalWebsite.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @inject IDataCacheService<SiteSetting> SiteSettings
+@inject IDataCacheService<PageSetting> PageSettings

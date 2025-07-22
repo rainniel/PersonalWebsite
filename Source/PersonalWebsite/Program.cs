@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using PersonalWebsite.Constants;
 using PersonalWebsite.Data;
+using PersonalWebsite.Middleware;
 using PersonalWebsite.Models;
 using PersonalWebsite.Services;
 
@@ -12,6 +13,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddSingleton<IDataCacheService<SiteSetting>, SiteSettingService>();
 builder.Services.AddSingleton<IDataCacheService<SocialMedia>, SocialMediaService>();
+builder.Services.AddSingleton<IDataCacheService<PageSetting>, PageSettingService>();
 builder.Services.AddSingleton<IDataCacheService<PageContent>, PageContentService>();
 
 builder.Services.AddRazorPages(options =>
@@ -46,11 +48,15 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+app.UseStatusCodePagesWithReExecute(Routes.Public.Error, "?code={0}");
+
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler(Routes.Public.Error);
+    app.UseExceptionHandler($"{Routes.Public.Error}?code=500");
     app.UseHsts();
 }
+
+app.UseMiddleware<MaintenanceMiddleware>();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

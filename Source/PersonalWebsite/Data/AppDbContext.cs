@@ -8,5 +8,6 @@ namespace PersonalWebsite.Data
         public DbSet<SiteSetting> SiteSettings { get; set; }
         public DbSet<SocialMedia> SocialMedias { get; set; }
         public DbSet<PageContent> PageContents { get; set; }
+        public DbSet<PageSetting> PageSettings { get; set; }
     }
 }

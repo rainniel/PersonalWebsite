@@ -1,0 +1,22 @@
+﻿@page
+@model PersonalWebsite.Pages.Admin.BlogModel
+@{
+    ViewData["PageTitle"] = PageNames.Blog;
+}
+<form method="post">
+    <div class="space-y-1">
+        <div class="flex justify-between items-center">
+            <label class="text-lg font-bold">Blog Content</label>
+            <div>
+                <input type="checkbox" id="blog-disable" asp-for="DisablePage" />
+                <label for="blog-disable">Disable Page</label>
+            </div>
+        </div>
+    </div>
+    <div class="flex pt-4">
+        <div class="flex-1 overflow-auto"></div>
+        <div>
+            <button type="submit" class="button w-40">Save</button>
+        </div>
+    </div>
+</form>

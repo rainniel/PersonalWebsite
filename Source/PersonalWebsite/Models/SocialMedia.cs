@@ -14,7 +14,7 @@ namespace PersonalWebsite.Models
 
         public SocialMedia() { }
 
-        public SocialMedia(string url = "", bool isHidden = false)
+        public SocialMedia(string url, bool isHidden)
         {
             URL = url;
             IsHidden = isHidden;

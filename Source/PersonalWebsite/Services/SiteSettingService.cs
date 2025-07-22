@@ -10,34 +10,34 @@ namespace PersonalWebsite.Services
         private readonly IServiceProvider _serviceProvider = serviceProvider;
         private readonly ConcurrentDictionary<string, SiteSetting> _cache = new(StringComparer.OrdinalIgnoreCase);
 
-        public async Task<SiteSetting> GetLatestAsync(string settingName)
+        public async Task<SiteSetting> GetLatestAsync(string name)
         {
             using var scope = _serviceProvider.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-            return await dbContext.SiteSettings.FirstOrDefaultAsync(s => s.Name.ToLower() == settingName.ToLower())
-                ?? new SiteSetting { Name = settingName };
+            return await dbContext.SiteSettings.FirstOrDefaultAsync(s => s.Name.ToLower() == name.ToLower())
+                ?? new SiteSetting { Name = name };
         }
 
-        public async Task SaveAsync(string settingName, SiteSetting data)
+        public async Task SaveAsync(string name, SiteSetting data)
         {
             using var scope = _serviceProvider.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-            var valueChanged = false;
-            var siteSetting = await dbContext.SiteSettings.FirstOrDefaultAsync(p => p.Name.ToLower() == settingName.ToLower());
+            var dataChanged = false;
+            var siteSetting = await dbContext.SiteSettings.FirstOrDefaultAsync(p => p.Name.ToLower() == name.ToLower());
 
             if (siteSetting == null)
             {
                 siteSetting = new SiteSetting
                 {
-                    Name = settingName,
+                    Name = name,
                     Value = data.Value,
                     LastModifiedDateTime = DateTime.UtcNow
                 };
 
                 dbContext.SiteSettings.Add(siteSetting);
-                valueChanged = true;
+                dataChanged = true;
             }
             else
             {
@@ -45,37 +45,37 @@ namespace PersonalWebsite.Services
                 {
                     siteSetting.Value = data.Value;
                     siteSetting.LastModifiedDateTime = DateTime.UtcNow;
-                    valueChanged = true;
+                    dataChanged = true;
                 }
             }
 
-            if (valueChanged)
+            if (dataChanged)
             {
                 await dbContext.SaveChangesAsync();
-                RefreshCached(settingName);
+                RefreshCached(name);
             }
         }
 
-        public async Task<SiteSetting> GetCachedAsync(string settingName)
+        public async Task<SiteSetting> GetCachedAsync(string name)
         {
-            if (_cache.TryGetValue(settingName, out var cached))
+            if (_cache.TryGetValue(name, out var cached))
             {
                 return cached;
             }
 
-            var siteSetting = await GetLatestAsync(settingName);
-            _cache[settingName] = siteSetting;
+            var siteSetting = await GetLatestAsync(name);
+            _cache[name] = siteSetting;
 
             return siteSetting;
         }
 
-        public void RefreshCached(string settingName) => ClearCached(settingName);
+        public void RefreshCached(string name) => ClearCached(name);
 
-        public void ClearCached(string? settingName = null)
+        public void ClearCached(string? name = null)
         {
-            if (!string.IsNullOrEmpty(settingName))
+            if (!string.IsNullOrEmpty(name))
             {
-                _cache.TryRemove(settingName, out _);
+                _cache.TryRemove(name, out _);
             }
             else
             {

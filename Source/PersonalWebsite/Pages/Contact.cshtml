@@ -1,5 +1,21 @@
 ﻿@page
 @model ContactModel
 @{
-    ViewData["Title"] = "Contact";
+    var contactDisabled = (await PageSettings.GetCachedAsync(PageNames.Contact)).IsDisabled;
+
+    ViewData["PageTitle"] = PageNames.Contact;
+}
+@if (contactDisabled)
+{
+    <div>
+        <p>Sorry, I'm currently not accepting inquiries.</p>
+    </div>
+}
+else
+{
+    <div>
+        Contact form here.
+        <form method="post">
+        </form>
+    </div>
 }

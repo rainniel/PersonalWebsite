@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using PersonalWebsite.Constants;
 using PersonalWebsite.Models;
 using PersonalWebsite.Services;
 
@@ -11,7 +12,7 @@ namespace PersonalWebsite.Pages
 
         public async Task OnGetAsync()
         {
-            PageContent = (await _pageContent.GetCachedAsync("Home")).Content ?? "";
+            PageContent = (await _pageContent.GetCachedAsync(PageNames.Home)).Content ?? "";
         }
     }
 }

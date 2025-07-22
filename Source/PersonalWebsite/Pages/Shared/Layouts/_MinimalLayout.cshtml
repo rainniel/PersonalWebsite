@@ -1,12 +1,14 @@
 ﻿@{
     var websiteName = (await SiteSettings.GetCachedAsync(SettingNames.WebsiteName)).Value ?? "";
+    var pageTitle = ViewData["PageTitle"]?.ToString() ?? "";
+    var title = string.IsNullOrWhiteSpace(pageTitle) ? websiteName : $"{pageTitle} - {websiteName}";
 }
 <!DOCTYPE html>
 <html lang="en" class="h-full">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@websiteName</title>
+    <title>@title</title>
 
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/icons.css" asp-append-version="true" />
@@ -19,7 +21,10 @@
 <body class="flex min-h-full">
     <main class="flex-1 flex flex-col">
         <div class="h-16 flex items-center">
-            <div class="main-container w-full flex justify-end items-center text-2xl">
+            <div class="main-container w-full flex justify-between items-center text-2xl">
+                <div>
+                    <a asp-area="" asp-page="@Routes.Public.Home">@websiteName</a>
+                </div>
                 <button type="button" onclick="Theme.toggle()" class="heading-button heading-button-theme">
                     <span id="light-icon" class="icon-theme-light" style="display:none"></span>
                     <span id="dark-icon" class="icon-theme-dark" style="display:none"></span>

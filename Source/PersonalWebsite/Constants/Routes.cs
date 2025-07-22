@@ -8,6 +8,7 @@
             public const string Portfolio = "/Portfolio";
             public const string Blog = "/Blog";
             public const string Contact = "/Contact";
+            public const string Maintenance = "/Maintenance";
             public const string Error = "/Error";
         }
 

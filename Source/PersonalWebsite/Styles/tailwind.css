@@ -72,8 +72,8 @@ footer.footer {
     @apply border-t md:border-0 border-border dark:border-border-dark bg-sidebar dark:bg-sidebar-dark md:bg-background dark:md:bg-background-dark;
 }
 
-button.button {
-    @apply rounded-md px-4 py-2 bg-primary dark:bg-primary-dark text-text-dark dark:text-text cursor-pointer;
+.button {
+    @apply rounded-md px-4 py-2 bg-primary dark:bg-primary-dark text-center text-text-dark dark:text-text cursor-pointer;
 }
 
 h1 {

@@ -2,23 +2,24 @@
 
 namespace PersonalWebsite.Models
 {
-    public class PageContent
+    public class PageSetting
     {
+
         public int ID { get; set; }
 
         [Required]
         [MaxLength(50)]
         public string Name { get; set; } = default!;
 
-        public string? Content { get; set; }
+        public bool IsDisabled { get; set; }
 
         public DateTime? LastModifiedDateTime { get; set; }
 
-        public PageContent() { }
+        public PageSetting() { }
 
-        public PageContent(string content)
+        public PageSetting(bool isDisabled)
         {
-            Content = content;
+            IsDisabled = isDisabled;
         }
     }
 }

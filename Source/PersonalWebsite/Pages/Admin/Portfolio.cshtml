@@ -1,12 +1,20 @@
 ﻿@page
 @model PersonalWebsite.Pages.Admin.PortfolioModel
 @{
-    ViewData["PageTitle"] = "Portfolio";
+    ViewData["PageTitle"] = PageNames.Portfolio;
 }
 <form method="post">
-    <label for="content" class="font-semibold">Portfolio Content</label>
-    <textarea class="w-full h-96 border-1 rounded-md p-2" id="content" asp-for="ContentValue"></textarea>
-    <div class="flex mt-2">
+    <div class="space-y-1">
+        <div class="flex justify-between items-center">
+            <label for="content" class="text-lg font-bold">Portfolio Content</label>
+            <div>
+                <input type="checkbox" id="portfolio-disable" asp-for="DisablePage" />
+                <label for="portfolio-disable">Disable Page</label>
+            </div>
+        </div>
+        <textarea class="w-full h-96 border-1 rounded-md p-2" id="content" asp-for="ContentValue"></textarea>
+    </div>
+    <div class="flex pt-4">
         <div class="flex-1 overflow-auto">
             HTML, CSS, and JavaScript are allowed.
         </div>

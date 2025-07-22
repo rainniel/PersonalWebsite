@@ -1,12 +1,16 @@
 ﻿@page
 @model PersonalWebsite.Pages.Admin.HomeModel
 @{
-    ViewData["PageTitle"] = "Home";
+    ViewData["PageTitle"] = PageNames.Home;
 }
 <form method="post">
-    <label for="content" class="font-semibold">Home Content</label>
-    <textarea class="w-full h-96" id="content" asp-for="ContentValue"></textarea>
-    <div class="flex mt-2">
+    <div class="space-y-1">
+        <div>
+            <label for="content" class="text-lg font-bold">Home Content</label>
+        </div>
+        <textarea class="w-full h-96" id="content" asp-for="ContentValue"></textarea>
+    </div>
+    <div class="flex pt-4">
         <div class="flex-1 overflow-auto">
             HTML, CSS, and JavaScript are allowed.
         </div>

@@ -16,17 +16,48 @@
     <div class="p-4">
         <div x-cloak x-show="tab === 'general'">
             <form method="post" asp-page-handler="FormGeneral">
-                <label for="website-name" class="font-semibold">Website Name</label>
-                <input type="text" class="text" id="website-name" asp-for="WebsiteName" />
-                <div class="flex mt-2">
-                    <div class="flex-1 overflow-auto">.</div>
-                    <div>
-                        <button type="submit" class="button w-40">Save</button>
+                <div class="space-y-6">
+                    <div class="flex flex-col mx-auto w-80">
+                        <label for="website-name" class="font-semibold">Website Name</label>
+                        <input type="text" class="text" id="website-name" asp-for="WebsiteName" />
+                    </div>
+
+                    <div class="flex mt-2">
+                        <div class="flex-1 overflow-auto">.</div>
+                        <div>
+                            <button type="submit" class="button w-40">Save</button>
+                        </div>
                     </div>
                 </div>
             </form>
         </div>
         <div x-cloak x-show="tab === 'maintenance'">
+            <form method="post" asp-page-handler="FormMaintenance">
+                <div class="space-y-6">
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <p class="text-lg font-bold">Maintenance Mode</p>
+                            <div>
+                                <input type="checkbox" id="enable-maintenance" asp-for="MaintenanceEnabled" />
+                                <label for="enable-maintenance">Enable</label>
+                            </div>
+                        </div>
+                        <div class="w-full flex items-center gap-2">
+                            <label for="maintenance-message" class="whitespace-nowrap">Message</label>
+                            <input type="text" class="text flex-grow" id="maintenance-message" asp-for="MaintenanceMessage" />
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <div class="flex-1">
+                            .
+                        </div>
+                        <div>
+                            <button type="submit" class="button w-40">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
