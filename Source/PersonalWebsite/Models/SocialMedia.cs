@@ -5,11 +5,15 @@ namespace PersonalWebsite.Models
     public class SocialMedia
     {
         public int ID { get; set; }
+
         [Required]
         [MaxLength(50)]
         public string Name { get; set; } = default!;
+
         public string? URL { get; set; }
+
         public bool IsHidden { get; set; }
+
         public DateTime? LastModifiedDateTime { get; set; }
 
         public SocialMedia() { }

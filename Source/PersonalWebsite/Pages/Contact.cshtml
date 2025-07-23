@@ -1,21 +1,58 @@
 ﻿@page
 @model ContactModel
 @{
-    var contactDisabled = (await PageSettings.GetCachedAsync(PageNames.Contact)).IsDisabled;
-
     ViewData["PageTitle"] = PageNames.Contact;
 }
-@if (contactDisabled)
+@if (Model.EnableForm)
 {
     <div>
-        <p>Sorry, I'm currently not accepting inquiries.</p>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="space-y-4">
+                <div class="flex justify-between space-x-4">
+                    <div class="flex-1 flex flex-col">
+                        <div><label asp-for="ContactMessage.Name"></label> <span>*</span></div>
+                        <input asp-for="ContactMessage.Name" class="text w-full" />
+                        <span asp-validation-for="ContactMessage.Name"></span>
+                    </div>
+                    <div class="flex-1 flex flex-col">
+                        <div><label asp-for="ContactMessage.Email"></label> <span>*</span></div>
+                        <input asp-for="ContactMessage.Email" class="text w-full" />
+                        <span asp-validation-for="ContactMessage.Email"></span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col">
+                    <div><label asp-for="ContactMessage.Subject"></label> <span>*</span></div>
+                    <input asp-for="ContactMessage.Subject" class="text w-full" />
+                    <span asp-validation-for="ContactMessage.Subject"></span>
+                </div>
+
+                <div>
+                    <label asp-for="ContactMessage.Message"></label> <span>*</span>
+                    <textarea asp-for="ContactMessage.Message" class="w-full h-40"></textarea>
+                    <span asp-validation-for="ContactMessage.Message"></span>
+                </div>
+            </div>
+            <div class="flex pt-4 space-x-4">
+                <div class="flex-1 flex flex-col">
+                    <div class="g-recaptcha" data-sitekey="@Model.RecaptchaSiteKey"></div>
+                    @if (!string.IsNullOrWhiteSpace(Model.StatusMessage))
+                    {
+                        <span>@Model.StatusMessage</span>
+                    }
+                </div>
+                <div class="flex items-end">
+                    <button type="submit" class="button w-40">Submit</button>
+                </div>
+            </div>
+        </form>
     </div>
 }
 else
 {
     <div>
-        Contact form here.
-        <form method="post">
-        </form>
+        <p>Sorry, I'm currently not accepting inquiries.</p>
     </div>
 }

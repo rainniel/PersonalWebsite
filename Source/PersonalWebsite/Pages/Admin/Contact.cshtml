@@ -12,6 +12,26 @@
                 <label for="contact-disable">Disable Page</label>
             </div>
         </div>
+
+        <div class="pt-3">
+            <div class="pt-2 border-1 rounded-2xl relative border-gray-200">
+                <div class="absolute -top-3 left-4 inline-block px-2 bg-background dark:bg-background-dark text-text dark:text-text-dark">
+                    Google reCAPTCHA (V2) Settings
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4 pr-6">
+                        <div class="flex items-center">
+                            <label for="site-key" class="w-32 text-right pr-4">Site Key</label>
+                            <input id="site-key" type="text" class="text flex-grow" asp-for="RecaptchaSiteKey" />
+                        </div>
+                        <div class="flex items-center">
+                            <label for="secret-key" class="w-32 text-right pr-4">Secret Key</label>
+                            <input id="secret-key" type="text" class="text flex-grow" asp-for="RecaptchaSecretKey" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="flex pt-4">
         <div class="flex-1 overflow-auto"></div>

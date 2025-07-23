@@ -4,7 +4,6 @@ namespace PersonalWebsite.Models
 {
     public class PageSetting
     {
-
         public int ID { get; set; }
 
         [Required]

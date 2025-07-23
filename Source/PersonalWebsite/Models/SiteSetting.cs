@@ -16,12 +16,12 @@ namespace PersonalWebsite.Models
 
         public SiteSetting() { }
 
-        public SiteSetting(string value)
+        public SiteSetting(string? value)
         {
             Value = value;
         }
 
-        public SiteSetting(string name, string value)
+        public SiteSetting(string name, string? value)
         {
             Name = name;
             Value = value;
